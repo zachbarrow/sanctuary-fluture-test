@@ -21,7 +21,7 @@ found 0 vulnerabilities
 
 ### Installation
 
-From [https://github.com/fluture-js/fluture-sanctuary-types]:
+From [Fluture Sanctuary Types](https://github.com/fluture-js/fluture-sanctuary-types):
 `npm install --save fluture sanctuary-def fluture-sanctuary-types`
 
 ### Results
