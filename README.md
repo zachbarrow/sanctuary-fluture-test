@@ -139,13 +139,6 @@ $.test(env)(FutureType($.String)($.Number))(Future.of(1));
   ^
 
 ReferenceError: FutureType is not defined
-    at Object.<anonymous> (/Users/zbarrow/git/sanctuary-fluture-test/index.js:7:3)
-    at Module._compile (internal/modules/cjs/loader.js:936:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:947:10)
-    at Module.load (internal/modules/cjs/loader.js:790:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:703:12)
-    at Function.Module.runMain (internal/modules/cjs/loader.js:999:10)
-    at internal/main/run_main_module.js:17:11
 ```
 
 There are a couple missing pieces here so I attempt to fix them
@@ -171,13 +164,4 @@ $.test(env)(FutureType($.String)($.Number))(Future.of(1));
 
 ### Results
 
-```
-TypeError: Future.of is not a function
-    at Object.<anonymous> (/Users/zbarrow/git/sanctuary-fluture-test/index.js:10:52)
-    at Module._compile (internal/modules/cjs/loader.js:936:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:947:10)
-    at Module.load (internal/modules/cjs/loader.js:790:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:703:12)
-    at Function.Module.runMain (internal/modules/cjs/loader.js:999:10)
-    at internal/main/run_main_module.js:17:11
-```
+`TypeError: Future.of is not a function`
