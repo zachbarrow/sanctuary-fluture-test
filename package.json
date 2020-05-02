@@ -1,0 +1,29 @@
+{
+  "name": "sanctuary-fluture-test",
+  "version": "1.0.0",
+  "description": "A test of Sanctuary and Fluture just trying to get the most basic example working",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zachbarrow/sanctuary-fluture-test.git"
+  },
+  "keywords": [
+    "sanctuary",
+    "fluture"
+  ],
+  "author": "Zach Barrow",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zachbarrow/sanctuary-fluture-test/issues"
+  },
+  "homepage": "https://github.com/zachbarrow/sanctuary-fluture-test#readme",
+  "dependencies": {
+    "fluture": "^12.2.0",
+    "fluture-sanctuary-types": "^5.0.0",
+    "sanctuary": "^3.0.0",
+    "sanctuary-def": "^0.21.1"
+  }
+}
