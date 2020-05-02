@@ -65,4 +65,119 @@ SyntaxError: Unexpected identifier
     at internal/main/run_main_module.js:17:11
 ```
 
-I am using Node 12, so I think I am going to have to rework this into the CommonJS syntax.
+## Attempt 2
+
+Reworking my initialization to get rid of errors, and putting things in CommonJS format, it appears I have things right.
+
+### Code
+
+```
+const { env, create } = require("sanctuary");
+const $ = require("sanctuary-def");
+const $F = require("fluture-sanctuary-types");
+const flutureEnv = $F.env;
+const S = create({ checkTypes: true, env: env.concat(flutureEnv) });
+console.log(S.env);
+```
+
+### Results (Snippet)
+
+```
+  {
+    _test: [Function],
+    _extractors: {},
+    arity: 0,
+    extractors: {},
+    format: [Function],
+    keys: [],
+    name: 'Undefined',
+    supertypes: [],
+    type: 'NULLARY',
+    types: {},
+    url: 'https://github.com/sanctuary-js/sanctuary-def/tree/v0.21.1#Undefined'
+  },
+  {
+    _test: [Function],
+    _extractors: { '$1': [Function: extractLeft], '$2': [Function: extractRight] },
+    arity: 2,
+    extractors: { '$1': [Function], '$2': [Function] },
+    format: [Function],
+    keys: [ '$1', '$2' ],
+    name: 'Future',
+    supertypes: [],
+    type: 'BINARY',
+    types: { '$1': [Object], '$2': [Object] },
+    url: 'https://github.com/fluture-js/Fluture#readme'
+  },
+  {
+    _test: [Function],
+    _extractors: { '$1': [Function], '$2': [Function] },
+    arity: 2,
+    extractors: { '$1': [Function], '$2': [Function] },
+    format: [Function],
+    keys: [ '$1', '$2' ],
+    name: 'ConcurrentFuture',
+    supertypes: [],
+    type: 'BINARY',
+    types: { '$1': [Object], '$2': [Object] },
+    url: 'https://github.com/fluture-js/Fluture#concurrentfuture'
+  }
+]
+```
+
+## Example Type Check
+
+### Code
+
+I added the type checking line to the previous code
+`$.test(env)(FutureType($.String)($.Number))(Future.of(1));`
+
+### Results
+
+```
+$.test(env)(FutureType($.String)($.Number))(Future.of(1));
+  ^
+
+ReferenceError: FutureType is not defined
+    at Object.<anonymous> (/Users/zbarrow/git/sanctuary-fluture-test/index.js:7:3)
+    at Module._compile (internal/modules/cjs/loader.js:936:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:947:10)
+    at Module.load (internal/modules/cjs/loader.js:790:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:703:12)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:999:10)
+    at internal/main/run_main_module.js:17:11
+```
+
+There are a couple missing pieces here so I attempt to fix them
+
+## Example Type Check Attempt 2
+
+### Revised Code
+
+I explicitly am trying to reference what is needed to get this to work.
+
+```
+const { env, create } = require("sanctuary");
+const $ = require("sanctuary-def");
+const F = require("fluture");
+const Future = F.Future;
+const $F = require("fluture-sanctuary-types");
+const flutureEnv = $F.env;
+const FutureType = $F.FutureType;
+const S = create({ checkTypes: true, env: env.concat(flutureEnv) });
+console.log(S.env);
+$.test(env)(FutureType($.String)($.Number))(Future.of(1));
+```
+
+### Results
+
+```
+TypeError: Future.of is not a function
+    at Object.<anonymous> (/Users/zbarrow/git/sanctuary-fluture-test/index.js:10:52)
+    at Module._compile (internal/modules/cjs/loader.js:936:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:947:10)
+    at Module.load (internal/modules/cjs/loader.js:790:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:703:12)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:999:10)
+    at internal/main/run_main_module.js:17:11
+```

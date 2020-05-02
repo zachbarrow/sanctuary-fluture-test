@@ -1,4 +1,10 @@
+const { env, create } = require("sanctuary");
 const $ = require("sanctuary-def");
-import { env } from "fluture-sanctuary-types";
-
-const def = $.create({ checkTypes: true, env: $.env.concat(env) });
+const F = require("fluture");
+const Future = F.Future;
+const $F = require("fluture-sanctuary-types");
+const flutureEnv = $F.env;
+const FutureType = $F.FutureType;
+const S = create({ checkTypes: true, env: env.concat(flutureEnv) });
+console.log(S.env);
+$.test(env)(FutureType($.String)($.Number))(Future.of(1));
